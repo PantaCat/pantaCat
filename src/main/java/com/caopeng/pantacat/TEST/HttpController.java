@@ -28,12 +28,14 @@ public class HttpController {
 
     @RequestMapping("/qhj")
     public ModelAndView test1() {
+        System.out.println("调用HttpController.test1-->开始");
         p1.sj();
         p2.sj();
         Pig p3 = pigMap.get("pig3");
         p3.sj();
         //返回视图方式调用页面
         ModelAndView mv = new ModelAndView("qhj");
+        System.out.println("调用HttpController.test1-->结束");
         return mv;
     }
 
