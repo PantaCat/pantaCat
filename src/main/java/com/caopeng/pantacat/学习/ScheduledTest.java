@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Configuration
 public class ScheduledTest {
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 500000)
     public void Test1(){
         System.out.println("这是个定时任务。");
     }

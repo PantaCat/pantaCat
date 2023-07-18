@@ -232,11 +232,13 @@ public class 日常学习记录 {
 //            System.out.println(e.getLocalizedMessage());
 //        }
 //    }
+//    public static void main(String[] args) {
+//        //时间戳的获取方式
+//        System.out.println(System.currentTimeMillis());
+//        System.out.println(new Date().getTime());
+//
+//    }
     public static void main(String[] args) {
-        //时间戳的获取方式
-        System.out.println(System.currentTimeMillis());
-        System.out.println(new Date().getTime());
-
+        FileInputStream o ;
     }
-
 }

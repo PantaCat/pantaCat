@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.5/dist/css/layui.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
+    <script src="//unpkg.com/layui@2.6.5/dist/layui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+<div id="container">
+    3333333333333333333333333 3333333333 333
+            <el-button type="danger" size="small" @click="add" style="float: right;">新增商品</el-button>
+
+            <!-- 弹窗,新增 -->
+            <el-dialog v-dialogDrag title="商品添加页面" :visible.sync="dialogFormVisible" class="dialog"
+                       custom-class="dialogs">
+                <el-steps :space="800" :active="active" finish-status="success">
+                    <el-step title="步骤 1"></el-step>
+                    <el-step title="步骤 2"></el-step>
+                </el-steps>
+
+                <el-form :label-position="labelPosition" label-width="100px" :model="formLabelAlign" v-show="show">
+                    <h2 style="text-align: center;"> 商品信息添加</h2>
+                    <el-form-item label="商品名：">
+                        <el-input v-model="product1.productName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="指导价：">
+                        <el-input v-model="product1.productPrice"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="一级分类名称：">
+                        <el-select v-model="product1.rootCategoryId" filterable placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                       :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="二级分类名称：">
+                        <el-select v-model="product1.categoryId" filterable placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                       :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="细节大图:" labe-width="100">
+                        <el-input type="file" v-model="product1.content"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="原价:" labe-width="100">
+                        <el-input v-model="product1.originPrice"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="尺码:" labe-width="100">
+                        <div style="margin: 15px 0;"></div>
+                        <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                            <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+
+                    <el-form-item label="库存:" labe-width="100">
+                        <el-input v-model="product1.saveNum"></el-input>
+                    </el-form-item>
+                </el-form>
+
+
+                <el-form label-width="100px" :model="formLabelAlign" v-show="!show">
+                    <h2 style="text-align: center;"> 商品参数信息添加</h2>
+
+                    <el-form-item label="品牌：">
+                        <el-input v-model="product1.productBrand"></el-input>
+                    </el-form-item>
+                    <el-form-item label="适合年龄:">
+                        <el-input v-model="product1.applicableAge"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="面料：">
+                        <el-input v-model="product1.productFabric"></el-input>
+                    </el-form-item>
+                    <el-form-item label="图案：" labe-width="100">
+                        <el-input v-model="product1.productPattern"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="袖型:">
+                        <el-input v-model="product1.sleeveType"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="袖长:">
+                        <el-input v-model="product1.clothingLength"></el-input>
+                    </el-form-item>
+                    <el-form-item label=" 衣长：">
+                        <el-input v-model="product1.sleevLength"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="颜色分类：">
+                        <el-input v-model="product1.productColor"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label=" 年份季节:" labe-width="100">
+                        <el-radio-group v-model="product1.radio">
+                            <el-radio :label="1">春天</el-radio>
+                            <el-radio :label="2">夏天</el-radio>
+                            <el-radio :label="3">秋天</el-radio>
+                            <el-radio :label="4">冬天</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+
+                    <el-el-form-item style="float: right;">
+                        <el-button @click="cancel"> 取消 </el-button>
+                        <el-button type="danger" @click="saveProduct(product1)">保存</el-button>
+                    </el-el-form-item>
+
+                </el-form>
+
+                <div slot="footer" class="dialog-footer">
+                    <el-button style="margin-top: 12px;" @click="pre">上一步</el-button>
+                    <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+                </div>
+            </el-dialog>
+
+</div>
+<script type="text/javascript">
+    var cityOptions = ['XL', 'M',"L"];
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+
+    var v = new Vue({
+        el:"#container",
+        data:{
+            // ------商品尺码
+            checkAll: true,
+            checkedCities: ['XL', 'M'],
+            cities: cityOptions,
+            isIndeterminate: true,
+            // ----------
+
+            //  一级分类
+            options: [{
+                value: '选项1',
+                label: '黄金糕'
+            }, {
+                value: '选项2',
+                label: '双皮奶'
+            }, {
+                value: '选项3',
+                label: '蚵仔煎'
+            }, {
+                value: '选项4',
+                label: '龙须面'
+            }, {
+                value: '选项5',
+                label: '北京烤鸭'
+            }],
+            value: '',
+
+            // ----
+            radio: 3,
+            dialogFormVisible:false,
+            show:true,
+            product1:{ },
+            active: 0,
+            token:"",
+            pageNum:1,
+            limit:5,
+            userId:"",
+            products:[],
+            count:0,
+            status:0,
+            keyword:""
+        },
+        created:function(){
+            this.token = getCookieValue("token");
+            this.userId = getCookieValue("userId");
+            //1.加载页面，请求订单信息
+            var url1 = baseUrl+"admin/manageclothes";
+
+            axios({
+                url:url1,
+                method:"get",
+                headers:{
+                    token:this.token
+                },
+                params:{
+
+                    pageNum:this.pageNum,
+                    limit:this.limit,
+                    status:this.status,
+                    keyword:this.keyword,
+                }
+            }).then((res)=>{
+                console.log(res.data.data);
+                if(res.data.code == 10000){
+                    this.products = res.data.data.list;
+                    this.count = res.data.data.count;
+                }
+
+            });
+        },
+        methods:{
+
+            // 保存商品
+            saveProduct(productVO){
+                console.log(productVO,"product1-------");
+
+
+                var url5=baseUrl+"";
+
+                axios({
+                    url:url5,
+                    method:"POST",
+                    data:productVO
+
+                }).then(res=>{
+
+                    ELEMENT.Message.success("添加地址成功");
+                    this.disabled=true;
+                })
+            },
+
+            handleCheckAllChange(event) {
+                this.checkedCities = event.target.checked ? cityOptions : [];
+                this.isIndeterminate = false;
+            },
+            handleCheckedCitiesChange(value) {
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.cities.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+            },
+            cancel(){
+                this.dialogFormVisible = false;
+            },
+            add(){
+                this.show = true;
+                this.dialogFormVisible = true;
+
+            },
+            next() {this.show = false;
+                if (this.active++ > 2) this.active = 0;
+
+            },
+            pre() {this.show = true;
+                if (this.active-- < 0) this.active = 0;
+
+            },
+            pager:function(page){
+                this.pageNum = page;
+                //1.加载页面，请求订单信息
+                var url1 = baseUrl+"admin/manageclothes";
+                var obj = {
+
+                    pageNum:this.pageNum,
+                    limit:this.limit,
+                    keyword:this.keyword,
+                    status:this.status
+                };
+                if(this.status!=null){
+                    obj.status = this.status;
+                }
+                axios({
+                    url:url1,
+                    method:"get",
+                    headers:{
+                        token:this.token
+                    },
+                    params:obj
+                }).then((res)=>{
+                    console.log(res.data.data);
+                    if(res.data.code == 10000){
+                        this.products = res.data.data.list;
+                        this.count = res.data.data.count;
+                    }
+                });
+            },
+            queryByStatus:function(status){
+                this.pageNum = 1;
+                this.status = status;
+                console.log("插旗")
+                console.log(this.status);
+                var url1 = baseUrl+"admin/manageclothes";
+                /* var parm = {
+        "userId":this.userId,
+    "pageNum":this.pageNum,
+    "limit":this.limit,
+    "status":this.status
+                }; */
+                axios({
+                    url:url1,
+                    method:"get",
+                    headers:{
+                        token:this.token
+                    },
+                    //data: parm
+                    params:{
+                        userId:this.userId,
+                        pageNum:this.pageNum,
+                        limit:this.limit,
+                        status:this.status
+                    }
+                }).then((res)=>{
+                    console.log(res.data.data);
+                    if(res.data.code == 10000){
+                        this.products = res.data.data.list;
+
+                        console.log(res.data.data.list.productName)
+                        this.count = res.data.data.count;
+                    }
+                });
+            },
+            deleteClothes:function(event){
+                var index = event.srcElement.dataset.id;
+                var pid = this.products[index].productId;
+                var url = baseUrl+"admin/deleteclothes/"+pid;
+                axios({
+                    url:url,
+                    method:"put",
+                    headers:{
+                        token:this.token
+                    }
+                }).then((res)=>{
+                    console.log("下架衣服测试");
+                    //alert("取消成功！")
+                    layer.msg("成功！");
+                    window.location.href="admin-manageclothes.html";
+                });
+
+            },
+            changeClothesinfo:function(event){
+                var index = event.srcElement.dataset.id;
+                var product = this.products[index];
+                localStorage.setItem("product",JSON.stringify(product));
+                window.location.href="admin-clothesinfo.html";
+            }
+        }
+
+    });
+
+</script>
+</body>
+
+</html>
