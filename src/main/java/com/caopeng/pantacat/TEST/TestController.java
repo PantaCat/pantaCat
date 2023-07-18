@@ -2,21 +2,11 @@ package com.caopeng.pantacat.TEST;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
-import com.alibaba.nacos.api.NacosFactory;
-import com.alibaba.nacos.api.config.ConfigService;
-import com.alibaba.nacos.api.exception.NacosException;
-import com.caopeng.pantacat.TEST.Dao.TestDao;
-import com.caopeng.pantacat.TEST.Dto.TestDto;
-import com.caopeng.pantacat.TEST.service.TestService;
-import com.caopeng.pantacat.Utils.PaginationBeanUtils;
-import com.github.pagehelper.PageInfo;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -26,12 +16,6 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/cat")
 public class TestController {
-
-    @Autowired
-    TestService testService;
-
-    @Resource
-    private TestDao testMapper;
 
     @RequestMapping("/test")
     public HashMap<String,Object> test() throws IOException {
@@ -48,38 +32,7 @@ public class TestController {
         return hm;
     }
 
-    @RequestMapping("/test2")
-    public String test2(HttpServletRequest request){
-//        List<Map> a = testService.testa();
-        TestDto testInfo = new TestDto();
-        testInfo.setPageNum(1);
-        testInfo.setPageSize(2);
-        PageInfo xInfo = testService.testb(testInfo);
-        request.setAttribute("","");
-        return "";
-    }
 
-    @RequestMapping("/test3")
-    public PageInfo test3(@RequestBody TestDto testInfo){
-        System.out.println("进入了test3方法");
-        PageInfo xInfo = PaginationBeanUtils.generatePage(() -> testMapper.testd(testInfo),testInfo);
-        return xInfo;
-    }
-
-//        public static void main(String[] args) throws NacosException {
-//            //nacos 地址
-//            String serverAddr = "127.0.0.1:8848";
-//            //Data Id
-//            String dataId = "crm-client";
-//            //Group
-//            String group = "DEFAULT_GROUP";
-//            Properties properties = new Properties();
-//            properties.put("serverAddr",serverAddr);
-//            ConfigService configService = NacosFactory.createConfigService(properties);
-//            //获取配置,String dataId, String group, long timeoutMs
-//            String content = configService.getConfig(dataId, group, 5000);
-//            System.out.println(content);
-//        }
 
     public static void main(String[] args) {
 //        float c = 1.0f - 0.9f;
