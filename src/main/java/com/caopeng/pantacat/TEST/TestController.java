@@ -6,7 +6,6 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;

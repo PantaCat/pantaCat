@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
 
-public class PDF {
+public class PDF生成 {
     /**
      * 用PdfPCell，PdfPTable生成PDF文件
      */
@@ -184,14 +184,14 @@ public class PDF {
         writer.close();
 
         ///////////////////////////////////////////////////////////////
-        FileOutputStream fos = new FileOutputStream("D:/cat2.pdf");
+        FileOutputStream fos = new FileOutputStream("E:/cat2.pdf");
         fos.write(bos.toByteArray());
         fos.close();
 
     }
 
     public static void main(String[] args) throws Exception {
-        PDF pdf = new PDF();
+        PDF生成 pdf = new PDF生成();
         pdf.PDFtoFunction1();
     }
 }

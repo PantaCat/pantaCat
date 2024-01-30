@@ -238,7 +238,17 @@ public class 日常学习记录 {
 //        System.out.println(new Date().getTime());
 //
 //    }
-    public static void main(String[] args) {
-        FileInputStream o ;
-    }
+    
+//    public static void main(String[] args) {
+//       String a = "ab";
+//       String b = "ab";
+//       String c = "a"+"b";
+//       String d = "abab";
+//       String e = "ab"+"ab";
+//       String f = a+b;
+//       System.out.println(a == b);
+//       System.out.println(a == c);
+//       System.out.println(d == e);
+//       System.out.println(d == f);
+//    }
 }
