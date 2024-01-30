@@ -1,6 +1,5 @@
 package com.caopeng.pantacat.TEST;
 
-import com.caopeng.pantacat.duojicheng.Pig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,24 +14,12 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/cat")
 public class HttpController {
-
-    @Autowired
-    @Qualifier("pig1")
-    Pig p1;
-
-    @Resource(name = "pig2")
-    Pig p2;
-
-    @Autowired
-    Map<String, Pig> pigMap;
+    
 
     @RequestMapping("/qhj")
     public ModelAndView test1() {
         System.out.println("调用HttpController.test1-->开始");
-        p1.sj();
-        p2.sj();
-        Pig p3 = pigMap.get("pig3");
-        p3.sj();
+       
         //返回视图方式调用页面
         ModelAndView mv = new ModelAndView("qhj");
         System.out.println("调用HttpController.test1-->结束");
