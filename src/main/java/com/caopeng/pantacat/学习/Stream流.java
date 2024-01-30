@@ -86,7 +86,7 @@ public class Stream流 {
         oldList.add(new Person(4,"小cc"));
 
         List<String> newList1 = oldList.stream().filter(a -> a.getName().contains("小")).map(Person::getName).collect(Collectors.toList());
-        List<Person> newList2 = oldList.stream().filter(a -> a.getName().contains("小")).collect(Collectors.toList());
+        List<Person> newList2 = oldList.stream().filter(a -> a.getId()>10).collect(Collectors.toList());
         List<String> newList3 = oldList.stream().filter(a -> a.getName().contains("小")).map(b -> b.getName()+"-悬崖之上").collect(Collectors.toList());
         List<Person> newList4 = oldList.stream().filter(a -> a.getName().contains("大")).map(b -> new Person(b.getId(),b.getName()+"-新方式")).collect(Collectors.toList());
         System.out.println(newList1);
