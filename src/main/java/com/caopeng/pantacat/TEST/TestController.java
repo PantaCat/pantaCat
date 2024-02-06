@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -47,19 +48,23 @@ public class TestController {
 //        System.out.println(f.compareTo(g));
 //        System.out.println("abd".compareTo("abc"));
 
-          Float a = 0.1f;
-          BigDecimal b = new BigDecimal("10");
-          BigDecimal c = new BigDecimal("3");
-          System.out.println(b.divide(c,BigDecimal.ROUND_HALF_UP));
-          System.out.println(b.divide(c, RoundingMode.UNNECESSARY));
-
-
-          try{
-              //调用servcie
-          }catch (Exception e){
-              //异常信息
-              e.printStackTrace();
-              //存日志表动作
-          }
+//          Float a = 0.1f;
+//          BigDecimal b = new BigDecimal("10");
+//          BigDecimal c = new BigDecimal("3");
+//          System.out.println(b.divide(c,BigDecimal.ROUND_HALF_UP));
+//          System.out.println(b.divide(c, RoundingMode.UNNECESSARY));
+//
+//
+//          try{
+//              //调用servcie
+//          }catch (Exception e){
+//              //异常信息
+//              e.printStackTrace();
+//              //存日志表动作
+//          }
+        
+        File f =  new File("E:/IoTest.xlsx");
+        Boolean b =  f.delete();
+        System.out.println(b);
     }
 }

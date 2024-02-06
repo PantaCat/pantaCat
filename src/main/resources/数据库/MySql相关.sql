@@ -5,6 +5,12 @@ MySQL没有select into from语法，会提示Undeclared variable
 或者CREATE TABLE newtable (select * from oldtable)  这种建表语句会照搬旧表的结构和数据，适用于备份的场景
 例子：CREATE TABLE package_datahideconfig_bak (SELECT * FROM package_datahideconfig)
 
+创建视图 CREATE VIEW
+例子：
+CREATE VIEW view_cat AS
+SELECT COUNT(*) as cat_count
+FROM panta_cat;
+
 ---------------函数相关---------------------------------------------------------------------------------------------------
 函数：GROUP_CONCAT
 作用：汇总结果，用','隔开
